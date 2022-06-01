@@ -1,0 +1,2058 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE root [
+
+    <!ELEMENT root (items, data)>
+    <!ELEMENT data (damagespecs)>
+    <!ELEMENT items (ammo, projectile_weapons, melee_weapons, throwables, bombs, traps, aid_items, other_items)>
+
+
+    <!-- ************ ELEMENT SECTION ************ -->
+
+
+    <!ELEMENT projectile_weapons (projectile_weapon*)>
+    <!ELEMENT ammo (ammo_type*)>
+    <!ELEMENT throwables (throwable*)>
+    <!ELEMENT aid_items (aid*)>
+    <!ELEMENT melee_weapons (melee_weapon*)>
+    <!ELEMENT bombs (bomb*)>
+    <!ELEMENT traps (trap*)>
+    <!ELEMENT other_items (other_item*)>
+    <!ELEMENT damagespecs (damage_spec*)>
+
+    <!ELEMENT projectile_weapon ((RankUnlockCondition|UsageUnlockCondition))>
+    <!ELEMENT ammo_type ((RankUnlockCondition|UsageUnlockCondition))>
+    <!ELEMENT throwable ((RankUnlockCondition|UsageUnlockCondition))>
+    <!ELEMENT aid ((RankUnlockCondition|UsageUnlockCondition))>
+    <!ELEMENT melee_weapon ((RankUnlockCondition|UsageUnlockCondition))>
+    <!ELEMENT bomb ((RankUnlockCondition|UsageUnlockCondition),bomb_special_effect*)>
+    <!ELEMENT trap ((RankUnlockCondition|UsageUnlockCondition), trap_special_effect*)>
+    <!ELEMENT other_item ((RankUnlockCondition|UsageUnlockCondition), other_item_special_effect*)>
+    <!ELEMENT RankUnlockCondition EMPTY>
+    <!ELEMENT UsageUnlockCondition EMPTY>
+    <!ELEMENT damage_spec EMPTY>
+
+    <!ELEMENT bomb_special_effect EMPTY>
+    <!ELEMENT trap_special_effect EMPTY>
+    <!ELEMENT other_item_special_effect EMPTY>
+
+
+
+
+
+    <!-- ************ ATTRIBUTE SECTION ************ -->
+
+
+
+
+    <!-- unlock condition attributes -->
+    <!ATTLIST RankUnlockCondition requiredBloodlineRank CDATA #REQUIRED>
+    <!ATTLIST UsageUnlockCondition requiredItemUnlockId IDREF #REQUIRED>
+    <!ATTLIST UsageUnlockCondition usingItems IDREFS #REQUIRED>
+    <!ATTLIST UsageUnlockCondition usageRequirement CDATA #REQUIRED>
+    <!ATTLIST UsageUnlockCondition unit (XPPoints|timesUsed) #REQUIRED>
+
+
+
+    <!-- projectile weapon attributes -->
+    <!-- shared from hs item -->
+    <!ATTLIST projectile_weapon id ID #REQUIRED>
+    <!ATTLIST projectile_weapon name CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon price CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- own attributes -->
+    <!ATTLIST projectile_weapon slots_consumed (1|2|3) #REQUIRED>
+    <!ATTLIST projectile_weapon scope (None|Small|Medium|Long) #REQUIRED>
+    <!ATTLIST projectile_weapon has_silencer (yes|no) #REQUIRED>
+    <!ATTLIST projectile_weapon action (Lever|Bolt|SingleAction|SemiAuto|Auto|BowString|BreakActionSingleBarrel|BreakActionDoubleBarrel|PumpAction|Other) #REQUIRED>
+    <!ATTLIST projectile_weapon can_double_wield (yes|no) #REQUIRED>
+    <!ATTLIST projectile_weapon fire_rate_per_minute CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon clip_size CDATA #REQUIRED>
+    <!ATTLIST projectile_weapon ammo_types IDREFS #REQUIRED>
+    <!ATTLIST projectile_weapon can_bear_multiple_ammo_types (yes|no) #REQUIRED>
+    <!ATTLIST projectile_weapon melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST projectile_weapon melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+
+
+
+    <!-- ammo attributes -->
+    <!-- shared from hs item -->
+    <!ATTLIST ammo_type id ID #REQUIRED>
+    <!ATTLIST ammo_type name CDATA #REQUIRED>
+    <!ATTLIST ammo_type price CDATA #REQUIRED>
+    <!-- own attributes -->
+    <!ATTLIST ammo_type ammo_supply CDATA #REQUIRED>
+    <!ATTLIST ammo_type projectile_type (BulletShortAmmo|BulletMediumAmmo|BulletLongAmmo|Buckshot|Arrow|Special) #REQUIRED>
+    <!ATTLIST ammo_type ammo_special_effect (Poisoning|ArmorPiercing|FullMetallJacket|Explosive|Incendiary|Bleeding|None) #REQUIRED>
+
+
+
+
+    <!-- melee weapon attributes -->
+    <!-- shared from hs item -->
+    <!ATTLIST melee_weapon id ID #REQUIRED>
+    <!ATTLIST melee_weapon name CDATA #REQUIRED>
+    <!ATTLIST melee_weapon price CDATA #REQUIRED>
+    <!ATTLIST melee_weapon melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST melee_weapon melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST melee_weapon item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- own attributes -->
+    <!ATTLIST melee_weapon slots_consumed (1|2|3) #REQUIRED>
+    <!ATTLIST melee_weapon melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST melee_weapon melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+
+    <!-- throwable attributes -->
+    <!-- shared from hs item -->
+    <!ATTLIST throwable id ID #REQUIRED>
+    <!ATTLIST throwable name CDATA #REQUIRED>
+    <!ATTLIST throwable price CDATA #REQUIRED>
+    <!ATTLIST throwable melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST throwable melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST throwable item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- own attributes -->
+    <!ATTLIST throwable damage_on_impact CDATA #REQUIRED>
+    <!ATTLIST throwable pack_size CDATA #REQUIRED>
+    <!ATTLIST throwable sticks_to_objects (yes|no) #REQUIRED>
+    <!ATTLIST throwable is_decoy (yes|no) #REQUIRED>
+    <!ATTLIST throwable melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST throwable melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+    <!-- bomb attributes -->
+    <!-- shares from hs item -->
+    <!ATTLIST bomb id ID #REQUIRED>
+    <!ATTLIST bomb name CDATA #REQUIRED>
+    <!ATTLIST bomb price CDATA #REQUIRED>
+    <!ATTLIST bomb melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST bomb melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST bomb item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- shared from throwable -->
+    <!ATTLIST bomb damage_on_impact CDATA #REQUIRED>
+    <!ATTLIST bomb pack_size CDATA #REQUIRED>
+    <!ATTLIST bomb sticks_to_objects (yes|no) #REQUIRED>
+    <!ATTLIST bomb is_decoy (yes|no) #REQUIRED>
+    <!-- own -->
+    <!ATTLIST bomb cooking_time CDATA #REQUIRED>
+    <!ATTLIST bomb impact_radius CDATA #REQUIRED>
+    <!ATTLIST bomb aoe_damage CDATA #REQUIRED>
+    <!ATTLIST bomb goes_off_under_water (yes|no) #REQUIRED>
+    <!ATTLIST bomb melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST bomb melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+
+    <!-- trap attributes -->
+    <!-- shares from hs item -->
+    <!ATTLIST trap id ID #REQUIRED>
+    <!ATTLIST trap name CDATA #REQUIRED>
+    <!ATTLIST trap price CDATA #REQUIRED>
+    <!ATTLIST trap melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST trap melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST trap item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- own -->
+    <!ATTLIST trap pack_size CDATA #REQUIRED>
+    <!ATTLIST trap melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST trap melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+
+    <!-- aid item attributes -->
+    <!-- shares from hs item -->
+    <!ATTLIST aid id ID #REQUIRED>
+    <!ATTLIST aid name CDATA #REQUIRED>
+    <!ATTLIST aid price CDATA #REQUIRED>
+    <!ATTLIST aid melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST aid melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST aid item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!-- own -->
+    <!ATTLIST aid health_restored CDATA #REQUIRED>
+    <!ATTLIST aid effect_duration CDATA #REQUIRED>
+    <!ATTLIST aid special_effect (PoisonImmunity|StaminaBoost|None) #REQUIRED>
+    <!ATTLIST aid melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST aid melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST aid pack_size CDATA #REQUIRED>
+
+
+
+    <!-- other item attributes -->
+    <!-- shares from hs item -->
+    <!ATTLIST other_item id ID #REQUIRED>
+    <!ATTLIST other_item name CDATA #REQUIRED>
+    <!ATTLIST other_item price CDATA #REQUIRED>
+    <!ATTLIST other_item melee_damage_light CDATA #REQUIRED>
+    <!ATTLIST other_item melee_damage_heavy CDATA #REQUIRED>
+    <!ATTLIST other_item item_category (Ammo|MainWeapon|Consumable|Tool) #REQUIRED>
+    <!ATTLIST other_item melee_damage_light_type (Blunt|Cut|Pierce) #REQUIRED>
+    <!ATTLIST other_item melee_damage_heavy_type (Blunt|Cut|Pierce) #REQUIRED>
+
+
+    <!-- bomb/trap/other_item special effect attributes -->
+    <!ATTLIST bomb_special_effect effect_type (Blinding|Sharpnel|Bleeding|Poisoning|Incendiary) #REQUIRED>
+    <!ATTLIST trap_special_effect effect_type (Poisoning|Bleeding|SlowDown|Incendiary) #REQUIRED>
+    <!ATTLIST other_item_special_effect effect_type (Binocular|LightSource|Incendiary|AmmoSupply) #REQUIRED>
+
+
+    <!-- damage spec attributes -->
+    <!ATTLIST damage_spec weapon_id IDREF #REQUIRED>
+    <!ATTLIST damage_spec ammo_id IDREF #REQUIRED>
+    <!ATTLIST damage_spec damage CDATA #REQUIRED>
+    <!ATTLIST damage_spec muzzle_velocity CDATA #REQUIRED>
+    <!ATTLIST damage_spec effective_range CDATA #REQUIRED>
+
+]>
+
+<root>
+    <items>
+        <ammo>
+            <ammo_type
+                id="sparks_ammo_standard"
+                name="Standard Sparks Ammo"
+                price="0"
+                ammo_supply="8"
+                projectile_type="BulletLongAmmo"
+                ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="27" />
+            </ammo_type>
+            <ammo_type
+                    id="lebel_ammo_standard"
+                    name="Standard Lebel 1886 Ammo"
+                    price="0"
+                    ammo_supply="7"
+                    projectile_type="BulletLongAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="52" />
+            </ammo_type>
+            <ammo_type
+                    id="martini_ammo_standard"
+                    name="Martini-Henry IC1 Standard Ammo"
+                    price="0"
+                    ammo_supply="10"
+                    projectile_type="BulletLongAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="16" />
+            </ammo_type>
+            <ammo_type
+                    id="mosin_ammo_standard"
+                    name="Standard Mosin-Nagant M1891 Ammo"
+                    price="0"
+                    ammo_supply="7"
+                    projectile_type="BulletLongAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="72" />
+            </ammo_type>
+            <ammo_type
+                    id="romero_ammo_standard"
+                    name="Standard Romero 77 Ammo"
+                    price="0"
+                    ammo_supply="6"
+                    projectile_type="Buckshot"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </ammo_type>
+            <ammo_type
+                    id="specter_ammo_standard"
+                    name="Standard Specter 1882 Ammo"
+                    price="0"
+                    ammo_supply="7"
+                    projectile_type="Buckshot"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="58" />
+            </ammo_type>
+            <!-- springfield family -->
+            <ammo_type
+                    id="springfield_ammo_standard"
+                    name="Standard"
+                    price="0"
+                    ammo_supply="12"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </ammo_type>
+            <ammo_type
+                    id="springfield_ammo_dumdum"
+                    name="Dumdum"
+                    price="50"
+                    ammo_supply="12"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="Bleeding"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="springfield_marksman"
+                        usingItems="springfield springfield_marksman"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="springfield_ammo_explosive"
+                    name="Explosive"
+                    price="90"
+                    ammo_supply="9"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="Explosive"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="springfield_obrez_deadeye"
+                        usingItems="springfield springfield_marksman springfield_obrez springfield_obrez_bayonet springfield_obrez_deadeye"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="vetterli_ammo_standard"
+                    name="Standard Vetterli 71 Ammo"
+                    price="0"
+                    ammo_supply="13"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="6" />
+            </ammo_type>
+            <ammo_type
+                    id="terminus_ammo_standard"
+                    name="Standard Winfield 1887 Terminus Ammo"
+                    price="0"
+                    ammo_supply="6"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="64" />
+            </ammo_type>
+            <!-- winfield family -->
+            <ammo_type
+                    id="winfield_ammo_standard"
+                    name="Standard"
+                    price="0"
+                    ammo_supply="18"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="20" />
+            </ammo_type>
+            <ammo_type
+                    id="winfield_ammo_incendiary"
+                    name="Incendiary"
+                    price="25"
+                    ammo_supply="18"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="Incendiary"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_aperture"
+                        usingItems="winfield winfield_aperture"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="winfield_ammo_high_velocity"
+                    name="High Velocity"
+                    price="75"
+                    ammo_supply="18"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_talon"
+                        usingItems="winfield winfield_aperture winfield_talon"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="winfield_ammo_fmj"
+                    name="FMJ"
+                    price="35"
+                    ammo_supply="18"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="FullMetallJacket"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_swift"
+                        usingItems="winfield winfield_aperture winfield_talon winfield_swift"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="bornheim_ammo_standard"
+                    name="Standard Bornheim No. 3 Ammo"
+                    price="0"
+                    ammo_supply="8"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="30" />
+            </ammo_type>
+            <ammo_type
+                    id="conversion_ammo_standard"
+                    name="Standard Conversion Ammo"
+                    price="0"
+                    ammo_supply="12"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="22" />
+            </ammo_type>
+            <ammo_type
+                    id="pax_ammo_standard"
+                    name="Standard Ammo"
+                    price="0"
+                    ammo_supply="9"
+                    projectile_type="BulletMediumAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="10" />
+            </ammo_type>
+            <ammo_type
+                    id="dolch_ammo_standard"
+                    name="Standard Ammo"
+                    price="0"
+                    ammo_supply="10"
+                    projectile_type="Special"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="10" />
+            </ammo_type>
+            <ammo_type
+                    id="hand_crossbow_ammo_standard"
+                    name="Standard Ammo"
+                    price="0"
+                    ammo_supply="6"
+                    projectile_type="Arrow"
+                    ammo_special_effect="Bleeding"
+            >
+                <RankUnlockCondition requiredBloodlineRank="4" />
+            </ammo_type>
+            <ammo_type
+                    id="lemat_ammo_standard"
+                    name="Standard Ammo"
+                    price="0"
+                    ammo_supply="13"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="46" />
+            </ammo_type>
+            <ammo_type
+                    id="nagant_ammo_standard"
+                    name="Standard"
+                    price="0"
+                    ammo_supply="14"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </ammo_type>
+            <ammo_type
+                    id="officer_ammo_standard"
+                    name="Standard Ammo"
+                    price="0"
+                    ammo_supply="10"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </ammo_type>
+            <ammo_type
+                    id="nagant_ammo_poison"
+                    name="Poison"
+                    price="35"
+                    ammo_supply="14"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="Poisoning"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="nagant_deadeye" usingItems="nagant nagant_precision nagant_silencer nagant_deadeye" usageRequirement="750" unit="XPPoints"/>
+            </ammo_type>
+            <ammo_type
+                    id="nagant_ammo_high_velocity"
+                    name="High Velocity"
+                    price="75"
+                    ammo_supply="14"
+                    projectile_type="BulletShortAmmo"
+                    ammo_special_effect="None"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="nagant_ammo_poison" usingItems="nagant nagant_precision nagant_silencer nagant_deadeye" usageRequirement="750" unit="XPPoints"/>
+            </ammo_type>
+        </ammo>
+        <projectile_weapons>
+            <projectile_weapon
+                id="sparks"
+                name="Sparks LRR"
+                price="130"
+                melee_damage_light="27"
+                melee_damage_heavy="54"
+                slots_consumed="3"
+                scope="None"
+                has_silencer="no"
+                action="SingleAction"
+                can_double_wield="no"
+                fire_rate_per_minute="38"
+                clip_size="1"
+                ammo_types="sparks_ammo_standard"
+                item_category="MainWeapon"
+                can_bear_multiple_ammo_types="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="27" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="lebel"
+                    name="Lebel 1886"
+                    price="397"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Bolt"
+                    can_double_wield="no"
+                    fire_rate_per_minute="34"
+                    clip_size="10"
+                    ammo_types="lebel_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="52" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="martini"
+                    name="Martini-Henry IC1"
+                    price="122"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="45"
+                    clip_size="1"
+                    ammo_types="martini_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="16" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="mosin"
+                    name="Mosin-Nagant M1891"
+                    price="490"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Bolt"
+                    can_double_wield="no"
+                    fire_rate_per_minute="34"
+                    clip_size="5"
+                    ammo_types="mosin_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="72" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="romero"
+                    name="Romero 77"
+                    price="34"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="BreakActionSingleBarrel"
+                    can_double_wield="no"
+                    fire_rate_per_minute="30"
+                    clip_size="1"
+                    ammo_types="romero_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="specter"
+                    name="Specter 1882 Bayonet"
+                    price="188"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="PumpAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="30"
+                    clip_size="5"
+                    ammo_types="specter_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Pierce"
+            >
+                <RankUnlockCondition requiredBloodlineRank="58" />
+            </projectile_weapon>
+            <!-- springfield family -->
+            <projectile_weapon
+                    id="springfield"
+                    name="Springfield 1866"
+                    price="38"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="1"
+                    ammo_types="springfield_ammo_standard springfield_ammo_dumdum springfield_ammo_explosive"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="springfield_marksman"
+                    name="Springfield 1866 Marksman"
+                    price="73"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="Medium"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="1"
+                    ammo_types="springfield_ammo_standard springfield_ammo_dumdum springfield_ammo_explosive"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="springfield" usingItems="springfield" usageRequirement="750" unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="springfield_obrez"
+                    name="Springfield 1866 Compact"
+                    price="33"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="2"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="1"
+                    ammo_types="springfield_ammo_standard springfield_ammo_dumdum springfield_ammo_explosive"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="springfield_ammo_dumdum" usingItems="springfield springfield_marksman" usageRequirement="750" unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="springfield_obrez_bayonet"
+                    name="Springfield 1866 Compact Striker"
+                    price="56"
+                    melee_damage_light="52"
+                    melee_damage_heavy="105"
+                    slots_consumed="2"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="1"
+                    ammo_types="springfield_ammo_standard springfield_ammo_dumdum springfield_ammo_explosive"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Cut"
+                    melee_damage_heavy_type="Pierce"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="springfield_obrez" usingItems="springfield springfield_marksman springfield_obrez" usageRequirement="750" unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="springfield_obrez_deadeye"
+                    name="Springfield 1866 Compact Deadeye"
+                    price="46"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="2"
+                    scope="Small"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="1"
+                    ammo_types="springfield_ammo_standard springfield_ammo_dumdum springfield_ammo_explosive"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="springfield_obrez_bayonet"
+                        usingItems="springfield springfield_marksman springfield_obrez springfield_obrez_bayonet"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="vetterli"
+                    name="Vetterli 71 Karabiner"
+                    price="105"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Bolt"
+                    can_double_wield="no"
+                    fire_rate_per_minute="42"
+                    clip_size="7"
+                    ammo_types="vetterli_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="6" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="terminus"
+                    name="Winfield 1887 Terminus"
+                    price="309"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="36"
+                    clip_size="7"
+                    ammo_types="terminus_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="64" />
+            </projectile_weapon>
+            <!-- winfield family -->
+            <projectile_weapon
+                    id="winfield"
+                    name="Winfield M1873"
+                    price="75"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="50"
+                    clip_size="16"
+                    ammo_types="winfield_ammo_standard winfield_ammo_incendiary winfield_ammo_high_velocity winfield_ammo_fmj"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="20" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="winfield_aperture"
+                    name="Winfield M1873 Aperture"
+                    price="80"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="50"
+                    clip_size="16"
+                    ammo_types="winfield_ammo_standard winfield_ammo_incendiary winfield_ammo_high_velocity winfield_ammo_fmj"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield"
+                        usingItems="winfield"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="winfield_talon"
+                    name="Winfield M1873 Talon"
+                    price="100"
+                    melee_damage_light="27"
+                    melee_damage_heavy="150"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="50"
+                    clip_size="16"
+                    ammo_types="winfield_ammo_standard winfield_ammo_incendiary winfield_ammo_high_velocity winfield_ammo_fmj"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Cut"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_ammo_incendiary"
+                        usingItems="winfield winfield_aperture"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="winfield_swift"
+                    name="Winfield M1873 Swift"
+                    price="128"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="50"
+                    clip_size="16"
+                    ammo_types="winfield_ammo_standard winfield_ammo_incendiary winfield_ammo_high_velocity winfield_ammo_fmj"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_ammo_high_velocity"
+                        usingItems="winfield winfield_aperture winfield_talon"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="winfield_musket_bayonet"
+                    name="Winfield M1873 Musket Bayonet"
+                    price="137"
+                    melee_damage_light="27"
+                    melee_damage_heavy="168"
+                    slots_consumed="3"
+                    scope="None"
+                    has_silencer="no"
+                    action="Lever"
+                    can_double_wield="no"
+                    fire_rate_per_minute="50"
+                    clip_size="18"
+                    ammo_types="winfield_ammo_standard winfield_ammo_incendiary winfield_ammo_high_velocity winfield_ammo_fmj"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Pierce"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="winfield_ammo_fmj"
+                        usingItems="winfield winfield_aperture winfield_talon winfield_swift"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="bornheim"
+                    name="Bornheim No. 3"
+                    price="201"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="Auto"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="210"
+                    clip_size="6"
+                    ammo_types="bornheim_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="30" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="conversion"
+                    name="Caldwell Conversion Pistol"
+                    price="26"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="44"
+                    clip_size="6"
+                    ammo_types="conversion_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="22" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="pax"
+                    name="Caldwell Pax"
+                    price="100"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="46"
+                    clip_size="6"
+                    ammo_types="pax_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="10" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="dolch"
+                    name="Dolch 96"
+                    price="750"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="Auto"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="164"
+                    clip_size="10"
+                    ammo_types="dolch_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="68" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="hand_crossbow"
+                    name="Hand Crossbow"
+                    price="35"
+                    melee_damage_light="18"
+                    melee_damage_heavy="36"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="BowString"
+                    can_double_wield="no"
+                    fire_rate_per_minute="12"
+                    clip_size="1"
+                    ammo_types="hand_crossbow_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="yes"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="4" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="lemat"
+                    name="LeMat Mark II Revolver"
+                    price="95"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="42"
+                    clip_size="9"
+                    ammo_types="lemat_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="46" />
+            </projectile_weapon>
+            <!-- nagant family -->
+            <projectile_weapon
+                    id="nagant"
+                    name="Nagant M1895"
+                    price="24"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="40"
+                    clip_size="7"
+                    ammo_types="nagant_ammo_standard nagant_ammo_poison nagant_ammo_high_velocity"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="1" />
+            </projectile_weapon>
+            <projectile_weapon
+                    id="nagant_precision"
+                    name="Nagant M1895 Precision"
+                    price="29"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="2"
+                    scope="None"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="63"
+                    clip_size="7"
+                    ammo_types="nagant_ammo_standard nagant_ammo_poison nagant_ammo_high_velocity"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="nagant" usingItems="nagant" usageRequirement="750" unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="nagant_silencer"
+                    name="Nagant M1895 Silencer"
+                    price="53"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="yes"
+                    action="SingleAction"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="40"
+                    clip_size="7"
+                    ammo_types="nagant_ammo_standard nagant_ammo_poison nagant_ammo_high_velocity"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="nagant_precision" usingItems="nagant nagant_precision" usageRequirement="750" unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="nagant_deadeye"
+                    name="Nagant M1895 Deadeye"
+                    price="42"
+                    melee_damage_light="27"
+                    melee_damage_heavy="54"
+                    slots_consumed="2"
+                    scope="Small"
+                    has_silencer="no"
+                    action="SingleAction"
+                    can_double_wield="no"
+                    fire_rate_per_minute="63"
+                    clip_size="7"
+                    ammo_types="nagant_ammo_standard nagant_ammo_poison nagant_ammo_high_velocity"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition
+                        requiredItemUnlockId="nagant"
+                        usingItems="nagant"
+                        usageRequirement="750"
+                        unit="XPPoints"/>
+            </projectile_weapon>
+            <projectile_weapon
+                    id="officer"
+                    name="Nagant M1895 Officer"
+                    price="99"
+                    melee_damage_light="13"
+                    melee_damage_heavy="31"
+                    slots_consumed="1"
+                    scope="None"
+                    has_silencer="no"
+                    action="SemiAuto"
+                    can_double_wield="yes"
+                    fire_rate_per_minute="100"
+                    clip_size="7"
+                    ammo_types="officer_ammo_standard"
+                    item_category="MainWeapon"
+                    can_bear_multiple_ammo_types="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="36" />
+            </projectile_weapon>
+        </projectile_weapons>
+        <melee_weapons>
+            <melee_weapon
+                id="axe"
+                name="Combat Axe"
+                price="5"
+                melee_damage_light="165"
+                melee_damage_heavy="330"
+                item_category="MainWeapon"
+                slots_consumed="2"
+                melee_damage_light_type="Cut"
+                melee_damage_heavy_type="Cut"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </melee_weapon>
+            <melee_weapon
+                id="knife"
+                name="Knife"
+                price="20"
+                melee_damage_light="52"
+                melee_damage_heavy="105"
+                item_category="Tool"
+                slots_consumed="1"
+                melee_damage_light_type="Cut"
+                melee_damage_heavy_type="Pierce"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </melee_weapon>
+            <melee_weapon
+                id="heavy_knife"
+                name="Heavy Knife"
+                price="25"
+                melee_damage_light="72"
+                melee_damage_heavy="120"
+                item_category="Tool"
+                slots_consumed="1"
+                melee_damage_light_type="Cut"
+                melee_damage_heavy_type="Cut"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="knife" usingItems="knife" usageRequirement="1000" unit="XPPoints" />
+            </melee_weapon>
+            <melee_weapon
+                id="dusters"
+                name="Dusters"
+                price="15"
+                melee_damage_light="31"
+                melee_damage_heavy="72"
+                item_category="Tool"
+                slots_consumed="1"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </melee_weapon>
+            <melee_weapon
+                id="knuckle_knife"
+                name="Knuckle Knife"
+                price="15"
+                melee_damage_light="58"
+                melee_damage_heavy="92"
+                item_category="Tool"
+                slots_consumed="1"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Pierce"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="dusters" usingItems="dusters" usageRequirement="2500" unit="XPPoints" />
+            </melee_weapon>
+        </melee_weapons>
+        <throwables>
+             <throwable
+                id="decoys"
+                name="Decoys"
+                price="6"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="12"
+                sticks_to_objects="no"
+                is_decoy="yes"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="32" />
+            </throwable>
+        </throwables>
+        <bombs>
+            <bomb
+                    id="choke_bombs"
+                    name="Choke bombs"
+                    price="25"
+                    melee_damage_light="13"
+                    melee_damage_heavy="27"
+                    item_category="Tool"
+                    damage_on_impact="1"
+                    pack_size="2"
+                    sticks_to_objects="no"
+                    is_decoy="no"
+                    cooking_time="8"
+                    impact_radius="5"
+                    aoe_damage="1"
+                    goes_off_under_water="no"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="11" />
+                <bomb_special_effect effect_type="Incendiary" />
+            </bomb>
+            <bomb
+                id="fire_bomb"
+                name="Fire Bomb"
+                price="18"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="0"
+                impact_radius="2"
+                aoe_damage="25"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+                <bomb_special_effect effect_type="Incendiary" />
+            </bomb>
+            <bomb
+                id="dynamite_small"
+                name="Dynamite Stick"
+                price="18"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="4"
+                impact_radius="8"
+                aoe_damage="750"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </bomb>
+            <bomb
+                id="dynamite_waxed"
+                name="Waxed Dynamite Stick"
+                price="24"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="4"
+                impact_radius="8"
+                aoe_damage="750"
+                goes_off_under_water="yes"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="dynamite_small" usingItems="dynamite_small" usageRequirement="250" unit="XPPoints" />
+            </bomb>
+            <bomb
+                id="sticky"
+                name="Sticky Bomb"
+                price="64"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="yes"
+                is_decoy="no"
+                cooking_time="8"
+                impact_radius="8"
+                aoe_damage="750"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="dynamite_waxed" usingItems="dynamite_small dynamite_waxed" usageRequirement="250" unit="XPPoints" />
+            </bomb>
+            <bomb
+                id="dynamite_medium"
+                name="Dynamite Bundle"
+                price="75"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="4"
+                impact_radius="9"
+                aoe_damage="1500"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="sticky" usingItems="dynamite_small dynamite_waxed sticky" usageRequirement="250" unit="XPPoints" />
+            </bomb>
+            <bomb
+                id="frag"
+                name="Frag Bomb"
+                price="70"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="4"
+                impact_radius="10"
+                aoe_damage="150"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="dynamite_medium" usingItems="dynamite_small dynamite_waxed sticky dynamite_medium" usageRequirement="250" unit="XPPoints" />
+                <bomb_special_effect effect_type="Bleeding" />
+                <bomb_special_effect effect_type="Sharpnel" />
+            </bomb>
+            <bomb
+                id="dynamite_big"
+                name="Big Dynamite Bundle"
+                price="110"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="4"
+                impact_radius="10"
+                aoe_damage="3000"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="frag" usingItems="dynamite_small dynamite_waxed sticky dynamite_medium frag" usageRequirement="250" unit="XPPoints" />
+            </bomb>
+            <bomb
+                id="chaos_bomb"
+                name="Chaos Bomb"
+                price="15"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="yes"
+                is_decoy="yes"
+                cooking_time="8"
+                impact_radius="0"
+                aoe_damage="0"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="alert_trap" usingItems="alert_trap decoys" usageRequirement="250" unit="XPPoints" />
+            </bomb>
+            <bomb
+                id="flash"
+                name="Flash Bomb"
+                price="47"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="0"
+                impact_radius="20"
+                aoe_damage="0"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="alert_trap" usingItems="alert_trap decoys" usageRequirement="250" unit="XPPoints" />
+                <bomb_special_effect effect_type="Blinding" />
+            </bomb>
+            <bomb
+                id="concertina_bomb"
+                name="Concertina Bomb"
+                price="48"
+                melee_damage_light="52"
+                melee_damage_heavy="112"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="0"
+                impact_radius="2"
+                aoe_damage="200"
+                goes_off_under_water="yes"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="alert_trap" usingItems="alert_trap decoys" usageRequirement="250" unit="XPPoints" />
+                <bomb_special_effect effect_type="Bleeding" />
+            </bomb>
+            <bomb
+                id="poison_bomb"
+                name="Poison Bomb"
+                price="25"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="0"
+                impact_radius="3"
+                aoe_damage="13"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="alert_trap" usingItems="alert_trap decoys" usageRequirement="250" unit="XPPoints" />
+                <bomb_special_effect effect_type="Poisoning" />
+            </bomb>
+            <bomb
+                id="hive_bomb"
+                name="Hive Bomb"
+                price="40"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                damage_on_impact="2"
+                pack_size="1"
+                sticks_to_objects="no"
+                is_decoy="no"
+                cooking_time="0"
+                impact_radius="0"
+                aoe_damage="4"
+                goes_off_under_water="no"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="alert_trap" usingItems="alert_trap decoys" usageRequirement="250" unit="XPPoints" />
+                <bomb_special_effect effect_type="Poisoning" />
+            </bomb>
+        </bombs>
+        <traps>
+            <trap
+                id="alert_trap"
+                name="Alert Trip Mines"
+                price="60"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Tool"
+                pack_size="2"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="decoys" usingItems="decoys" usageRequirement="250" unit="XPPoints" />
+                <trap_special_effect effect_type="Incendiary" />
+            </trap>
+            <trap
+                id="concertina_trap"
+                name="Concertina Trip Mines"
+                price="90"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Tool"
+                pack_size="2"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="40" />
+                <trap_special_effect effect_type="Bleeding" />
+                <trap_special_effect effect_type="SlowDown" />
+            </trap>
+        </traps>
+        <aid_items>
+            <aid
+                id="antidote_small"
+                name="Weak Antidote Shot"
+                price="25"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="0"
+                effect_duration="30"
+                special_effect="PoisonImmunity"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="poison_bomb" usingItems="poison_bomb" usageRequirement="10" unit="timesUsed" />
+            </aid>
+            <aid
+                id="antidote"
+                name="Antidote Shot"
+                price="55"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="0"
+                effect_duration="60"
+                special_effect="PoisonImmunity"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="poison_bomb" usingItems="poison_bomb antidote_small" usageRequirement="25" unit="timesUsed" />
+            </aid>
+            <aid
+                id="health_injection_small"
+                name="Weak Vitality Shot"
+                price="10"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="75"
+                effect_duration="0"
+                special_effect="None"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </aid>
+            <aid
+                id="health_injection"
+                name="Vitality Shot"
+                price="65"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="150"
+                effect_duration="0"
+                special_effect="None"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="health_injection_small" usingItems="health_injection_small" usageRequirement="10" unit="timesUsed" />
+            </aid>
+            <aid
+                id="stamina_small"
+                name="Weak Stamina Shot"
+                price="10"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="0"
+                effect_duration="1"
+                special_effect="StaminaBoost"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </aid>
+            <aid
+                    id="medkit"
+                    name="Medkit"
+                    price="10"
+                    melee_damage_light="13"
+                    melee_damage_heavy="27"
+                    item_category="Tool"
+                    health_restored="50"
+                    effect_duration="1"
+                    special_effect="StaminaBoost"
+                    melee_damage_light_type="Blunt"
+                    melee_damage_heavy_type="Blunt"
+                    pack_size="3"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+            </aid>
+            <aid
+                id="stamina"
+                name="Stamina Shot"
+                price="40"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Consumable"
+                health_restored="0"
+                effect_duration="10"
+                special_effect="StaminaBoost"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+                pack_size="1"
+            >
+                <UsageUnlockCondition requiredItemUnlockId="health_injection" usingItems="stamina_small health_injection" usageRequirement="10" unit="timesUsed" />
+            </aid>
+        </aid_items>
+        <other_items>
+            <other_item
+                id="spyglass"
+                name="Spyglass"
+                price="8"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Tool"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+                <other_item_special_effect effect_type="Binocular" />
+            </other_item>
+            <other_item
+                id="lamp"
+                name="Electric Lamp"
+                price="5"
+                melee_damage_light="13"
+                melee_damage_heavy="27"
+                item_category="Tool"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="0" />
+                <other_item_special_effect effect_type="LightSource" />
+            </other_item>
+            <other_item
+                id="ammo_box"
+                name="Ammo Box"
+                price="65"
+                melee_damage_light="31"
+                melee_damage_heavy="67"
+                item_category="Consumable"
+                melee_damage_light_type="Blunt"
+                melee_damage_heavy_type="Blunt"
+            >
+                <RankUnlockCondition requiredBloodlineRank="80" />
+                <other_item_special_effect effect_type="AmmoSupply" />
+            </other_item>
+        </other_items>
+    </items>
+    <data>
+        <damagespecs>
+            <damage_spec
+                    ammo_id="sparks_ammo_standard"
+                    weapon_id="sparks"
+                    damage="149"
+                    effective_range="350"
+                    muzzle_velocity="500"/>
+            <damage_spec
+                    ammo_id="lebel_ammo_standard"
+                    weapon_id="lebel"
+                    damage="132"
+                    effective_range="350"
+                    muzzle_velocity="630"/>
+            <damage_spec
+                    ammo_id="martini_ammo_standard"
+                    weapon_id="martini"
+                    damage="143"
+                    effective_range="350"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="mosin_ammo_standard"
+                    weapon_id="mosin"
+                    damage="136"
+                    effective_range="350"
+                    muzzle_velocity="615"/>
+            <damage_spec
+                    ammo_id="romero_ammo_standard"
+                    weapon_id="romero"
+                    damage="200"
+                    effective_range="15"
+                    muzzle_velocity="450"/>
+            <damage_spec
+                    ammo_id="specter_ammo_standard"
+                    weapon_id="specter"
+                    damage="185"
+                    effective_range="12"
+                    muzzle_velocity="425"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield"
+                    damage="132"
+                    effective_range="350"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="vetterli_ammo_standard"
+                    weapon_id="vetterli"
+                    damage="130"
+                    effective_range="250"
+                    muzzle_velocity="410"/>
+            <damage_spec
+                    ammo_id="terminus_ammo_standard"
+                    weapon_id="terminus"
+                    damage="185"
+                    effective_range="11"
+                    muzzle_velocity="425"/>
+            <!-- winfield standard ammo -->
+            <damage_spec
+                    ammo_id="winfield_ammo_standard"
+                    weapon_id="winfield"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_standard"
+                    weapon_id="winfield_aperture"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_standard"
+                    weapon_id="winfield_talon"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_standard"
+                    weapon_id="winfield_swift"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_standard"
+                    weapon_id="winfield_musket_bayonet"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <!-- winfield incendiary ammo -->
+            <damage_spec
+                    ammo_id="winfield_ammo_incendiary"
+                    weapon_id="winfield"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_incendiary"
+                    weapon_id="winfield_aperture"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_incendiary"
+                    weapon_id="winfield_talon"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_incendiary"
+                    weapon_id="winfield_swift"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_incendiary"
+                    weapon_id="winfield_musket_bayonet"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="400"/>
+            <!-- winfield high velocity ammo -->
+            <damage_spec
+                    ammo_id="winfield_ammo_high_velocity"
+                    weapon_id="winfield"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="600"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_high_velocity"
+                    weapon_id="winfield_aperture"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="600"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_high_velocity"
+                    weapon_id="winfield_swift"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="600"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_high_velocity"
+                    weapon_id="winfield_talon"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="600"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_high_velocity"
+                    weapon_id="winfield_musket_bayonet"
+                    damage="110"
+                    effective_range="95"
+                    muzzle_velocity="600"/>
+            <!-- winfield ammo fmj -->
+            <damage_spec
+                    ammo_id="winfield_ammo_fmj"
+                    weapon_id="winfield"
+                    damage="110"
+                    effective_range="138"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_fmj"
+                    weapon_id="winfield_aperture"
+                    damage="110"
+                    effective_range="138"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_fmj"
+                    weapon_id="winfield_talon"
+                    damage="110"
+                    effective_range="138"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_fmj"
+                    weapon_id="winfield_swift"
+                    damage="110"
+                    effective_range="138"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="winfield_ammo_fmj"
+                    weapon_id="winfield_musket_bayonet"
+                    damage="110"
+                    effective_range="138"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="bornheim_ammo_standard"
+                    weapon_id="bornheim"
+                    damage="74"
+                    effective_range="90"
+                    muzzle_velocity="380"/>
+            <damage_spec
+                    ammo_id="conversion_ammo_standard"
+                    weapon_id="conversion"
+                    damage="104"
+                    effective_range="110"
+                    muzzle_velocity="300"/>
+            <damage_spec
+                    ammo_id="pax_ammo_standard"
+                    weapon_id="pax"
+                    damage="110"
+                    effective_range="110"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="dolch_ammo_standard"
+                    weapon_id="dolch"
+                    damage="96"
+                    effective_range="110"
+                    muzzle_velocity="440"/>
+            <damage_spec
+                    ammo_id="hand_crossbow_ammo_standard"
+                    weapon_id="hand_crossbow"
+                    damage="195"
+                    effective_range="45"
+                    muzzle_velocity="100"/>
+            <damage_spec
+                    ammo_id="lemat_ammo_standard"
+                    weapon_id="lemat"
+                    damage="97"
+                    effective_range="79"
+                    muzzle_velocity="300"/>
+            <!-- nagant standard ammo -->
+            <damage_spec
+                    ammo_id="nagant_ammo_standard"
+                    weapon_id="nagant"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_standard"
+                    weapon_id="nagant_deadeye"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_standard"
+                    weapon_id="nagant_precision"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_standard"
+                    weapon_id="nagant_silencer"
+                    damage="91"
+                    effective_range="56"
+                    muzzle_velocity="250"/>
+            <!-- nagant poison ammo -->
+            <damage_spec
+                    ammo_id="nagant_ammo_poison"
+                    weapon_id="nagant"
+                    damage="68"
+                    effective_range="58"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_poison"
+                    weapon_id="nagant_precision"
+                    damage="68"
+                    effective_range="58"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_poison"
+                    weapon_id="nagant_deadeye"
+                    damage="68"
+                    effective_range="58"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_poison"
+                    weapon_id="nagant_silencer"
+                    damage="68"
+                    effective_range="45"
+                    muzzle_velocity="250"/>
+            <!-- nagant high velocity ammo -->
+            <damage_spec
+                    ammo_id="nagant_ammo_high_velocity"
+                    weapon_id="nagant"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_high_velocity"
+                    weapon_id="nagant_precision"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_high_velocity"
+                    weapon_id="nagant_deadeye"
+                    damage="91"
+                    effective_range="73"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="nagant_ammo_high_velocity"
+                    weapon_id="nagant_silencer"
+                    damage="91"
+                    effective_range="56"
+                    muzzle_velocity="410"/>
+            <!-- springfield standard ammo -->
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield"
+                    damage="132"
+                    effective_range="212"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield_marksman"
+                    damage="132"
+                    effective_range="212"
+                    muzzle_velocity="490"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield_obrez"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="440"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield_obrez_bayonet"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="440"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_standard"
+                    weapon_id="springfield_obrez_deadeye"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="440"/>
+            <!-- springfield dumdum ammo -->
+            <damage_spec
+                    ammo_id="springfield_ammo_dumdum"
+                    weapon_id="springfield"
+                    damage="132"
+                    effective_range="212"
+                    muzzle_velocity="440"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_dumdum"
+                    weapon_id="springfield_marksman"
+                    damage="132"
+                    effective_range="212"
+                    muzzle_velocity="440"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_dumdum"
+                    weapon_id="springfield_obrez"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="390"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_dumdum"
+                    weapon_id="springfield_obrez_bayonet"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="390"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_dumdum"
+                    weapon_id="springfield_obrez_deadeye"
+                    damage="130"
+                    effective_range="203"
+                    muzzle_velocity="390"/>
+            <!-- springfield explosive ammo -->
+            <damage_spec
+                    ammo_id="springfield_ammo_explosive"
+                    weapon_id="springfield"
+                    damage="122"
+                    effective_range="96"
+                    muzzle_velocity="370"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_explosive"
+                    weapon_id="springfield_marksman"
+                    damage="122"
+                    effective_range="96"
+                    muzzle_velocity="370"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_explosive"
+                    weapon_id="springfield_obrez"
+                    damage="120"
+                    effective_range="87"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_explosive"
+                    weapon_id="springfield_obrez_bayonet"
+                    damage="120"
+                    effective_range="87"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="springfield_ammo_explosive"
+                    weapon_id="springfield_obrez_deadeye"
+                    damage="120"
+                    effective_range="87"
+                    muzzle_velocity="330"/>
+            <damage_spec
+                    ammo_id="officer_ammo_standard"
+                    weapon_id="officer"
+                    damage="91"
+                    effective_range="90"
+                    muzzle_velocity="330"/>
+        </damagespecs>
+    </data>
+</root>

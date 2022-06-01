@@ -1,0 +1,657 @@
+<?language javascript?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import hsgui.widgets.*?>
+<?import hsgui.widgets.filters.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="hsgui.MainViewController"
+           prefWidth="1200">
+
+    <!-- main program screen -->
+    <VBox>
+
+        <!--<HBox alignment="CENTER">
+            <EasyIcon path="/hs_resized.png" color="#FFFFFF" fitWidth="110" fitHeight="110"/>
+        </HBox>-->
+        <HBox alignment="CENTER">
+            <StackPane>
+                <EasyIcon path="icons/hs_cross_left.png" color="#C2185B" fitWidth="140" fitHeight="140"/>
+                <EasyIcon path="icons/hs_cross_right.png" color="#57DCBE" fitWidth="140" fitHeight="140"/>
+            </StackPane>
+        </HBox>
+        <StackPane>
+            <!-- main working area -->
+            <GridPane hgap="60">
+
+                <padding>
+                    <Insets topRightBottomLeft="20"/>
+                </padding>
+
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="35"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="44"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="46"/>
+                </columnConstraints>
+
+                <VBox id = "filtersView" GridPane.rowIndex="0" GridPane.columnIndex="0">
+
+                    <HBox>
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.2);
+                        </style>
+                        <Label text = "FILTERS">
+                            <padding>
+                                <Insets topRightBottomLeft="2"/>
+                            </padding>
+                        </Label>
+                    </HBox>
+
+                    <HBox>
+                        <padding>
+                            <Insets top = "15"/>
+                        </padding>
+                    </HBox>
+
+                    <GridPane id = "filtersPane">
+
+                        <Label text = "Max. price"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <MaxPriceFilter GridPane.rowIndex="0"
+                                        GridPane.columnIndex="1"
+                                        minValue="30"
+                                        maxValue="5000"
+                                        scrollIncrementSpeed="5"
+                                        incrementButtonStep="100"
+                                        fx:id="maxPriceFilter"/>
+
+                        <Label text = "Min. price"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="1"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <MinPriceFilter GridPane.rowIndex="1"
+                                        GridPane.columnIndex="1"
+                                        minValue="30"
+                                        maxValue="5000"
+                                        scrollIncrementSpeed="5"
+                                        incrementButtonStep="100"
+                                        fx:id="minPriceFilter"/>
+
+                        <Label text = "Max. rank"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="2"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity">
+                            <padding>
+                                <Insets bottom="20"/>
+                            </padding>
+                        </Label>
+                        <RankFilter GridPane.rowIndex="2"
+                                    GridPane.columnIndex="1"
+                                    minValue="0"
+                                    maxValue="100"
+                                    scrollIncrementSpeed="1"
+                                    incrementButtonStep="5"
+                                    fx:id="rankFilter">
+                            <padding>
+                                <Insets bottom="20"/>
+                            </padding>
+                        </RankFilter>
+
+                        <Label text = "Efficient melee"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="3"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                               prefHeight="${maxPriceFilter.height}">
+                        </Label>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1"
+                              GridPane.rowIndex="3" prefHeight="${maxPriceFilter.prefHeight}">
+                            <EfficientMeleeFilter styleClass="item-combo-box"
+                                                  fx:id="efficientMeleeFilter"/>
+                        </HBox>
+
+
+                        <Label text = "Equip chokes"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="4"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                               prefHeight="${maxPriceFilter.height}"/>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1"
+                              GridPane.rowIndex="4">
+                            <ContainingToolFilter itemId="choke_bombs" styleClass="item-combo-box"
+                                                  fx:id="equipChokesFilter"/>
+                        </HBox>
+
+                        <Label text = "Use all slots"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="5"
+                               GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                               prefHeight="${maxPriceFilter.height}"/>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1"
+                              GridPane.rowIndex="5">
+                            <SlotsConsumedFilter fx:id="slotsConsumedFilter" styleClass="item-combo-box"/>
+                        </HBox>
+
+                        <VBox GridPane.columnIndex="0"
+                              GridPane.rowIndex="6">
+                            <padding>
+                                <Insets top="20"/>
+                            </padding>
+                            <Label text = "Melee loadout"
+                                   GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                                   prefHeight="${maxPriceFilter.height}"/>
+                        </VBox>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1"
+                              GridPane.rowIndex="6">
+                            <padding>
+                                <Insets top="20"/>
+                            </padding>
+                            <MeleeEquipFilter groupBorderRadius="5"
+                                              fx:id="meleeEquipFilter">
+                                <options>
+                                    <ArrayList>
+                                        <MeleeEquipType fx:value="Some"/>
+                                        <MeleeEquipType fx:value="Ai"/>
+                                        <MeleeEquipType fx:value="Pvp"/>
+                                        <MeleeEquipType fx:value="Ultra"/>
+                                    </ArrayList>
+                                </options>
+                            </MeleeEquipFilter>
+                        </HBox>
+
+                        <VBox GridPane.columnIndex="0"
+                              GridPane.rowIndex="7">
+                            <padding>
+                                <Insets top="20"/>
+                            </padding>
+                            <Label text = "Healing capacity"
+                                   GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                                   prefHeight="${maxPriceFilter.height}"/>
+                        </VBox>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1"
+                              GridPane.rowIndex="7">
+                            <padding>
+                                <Insets top="20"/>
+                            </padding>
+                            <HealingCapacityFilter groupBorderRadius="5"
+                                                   fx:id="healingCapacityFilter">
+                                <options>
+                                    <ArrayList>
+                                        <Integer fx:value="225"/>
+                                        <Integer fx:value="450"/>
+                                        <Integer fx:value="600"/>
+                                    </ArrayList>
+                                </options>
+                            </HealingCapacityFilter>
+                        </HBox>
+
+                    </GridPane>
+                </VBox>
+
+                <GridPane id = "loadoutView" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" vgap="4">
+
+                    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.2);
+                        </style>
+                        <Label text = "LOADOUT" >
+                            <padding>
+                                <Insets topRightBottomLeft="2"/>
+                            </padding>
+                        </Label>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                        <padding>
+                            <Insets top="15"/>
+                        </padding>
+                    </HBox>
+
+                    <!-- main weapons -->
+                    <HBox id = "primaryWeaponContainer" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" spacing="4">
+                        <!--<EasyIcon path="/revolver.png" color="#D60006" fitHeight="24" fitWidth="24" noise="1.0"/>-->
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="item-combo-box" fx:id="primaryWeaponContainer"/>
+                        <ToggleButton text = "x2" styleClass="item-combo-box" fx:id="primaryWeaponDoubleWield"/>
+                        <Button styleClass="item-combo-box"
+                                prefHeight="${primaryWeaponContainer.height}" prefWidth="${primaryWeaponContainer.height}" onAction="primaryWeaponContainer.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0"
+                                          fitHeight="${primaryWeaponContainer.height * 0.4}"
+                                          fitWidth="${primaryWeaponContainer.height * 0.4}"
+                                          noise="0.0"
+                                          styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex = "3" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" spacing="4">
+                        <!--<EasyIcon path="/bullet.png" color="#D60006" fitHeight="24" fitWidth="24" noise="0.4"/>-->
+                        <GridPane HBox.hgrow="ALWAYS" hgap="4">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                            </columnConstraints>
+                            <ComboBox GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" styleClass="item-combo-box" fx:id="primaryWeaponAmmo1"/>
+                            <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" styleClass="item-combo-box" fx:id="primaryWeaponAmmo2"/>
+                        </GridPane>
+                        <padding>
+                            <Insets bottom="10"/>
+                        </padding>
+                    </HBox>
+
+                    <HBox id = "secondaryWeaponContainer" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" spacing="4">
+                        <!--<EasyIcon path="/revolver.png" color="#D60006" fitHeight="24" fitWidth="24"/>-->
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="item-combo-box" fx:id="secondaryWeaponContainer"/>
+                        <ToggleButton text = "x2" styleClass="item-combo-box" fx:id="secondaryWeaponDoubleWield"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="secondaryWeaponContainer.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex = "5" GridPane.columnIndex="0" spacing="4">
+                        <!--<EasyIcon path="/bullet.png" color="#D60006" fitHeight="24" fitWidth="24"/>-->
+                        <GridPane HBox.hgrow="ALWAYS" hgap="4">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                            </columnConstraints>
+                            <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity" styleClass="item-combo-box" fx:id="secondaryWeaponAmmo1"/>
+                            <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity" styleClass="item-combo-box" fx:id="secondaryWeaponAmmo2"/>
+                        </GridPane>
+                        <padding>
+                            <Insets bottom="10"/>
+                        </padding>
+                    </HBox>
+
+                    <!-- tools -->
+                    <HBox GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="tool1"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="tool1.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="tool2"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="tool2.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="8" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="tool3"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="tool3.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="9" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="tool4"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="tool4.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                        <padding>
+                            <Insets bottom="10"/>
+                        </padding>
+                    </HBox>
+
+                    <!-- consumables -->
+                    <HBox GridPane.rowIndex="10" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="consumable1"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="consumable1.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="consumable2"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="consumable2.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="12" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="consumable3"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="consumable3.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                    <HBox GridPane.rowIndex="13" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" maxWidth="Infinity" spacing="4">
+                        <ComboBox HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass = "item-combo-box" fx:id="consumable4"/>
+                        <Button styleClass="item-combo-box" prefHeight="${primaryWeaponAmmo1.height}" prefWidth="${primaryWeaponAmmo1.height}" onAction="consumable4.setValue(null);">
+                            <graphic>
+                                <EasyIcon path="icons/clear.png" color="#d2d2d0" fitHeight="${primaryWeaponAmmo1.height * 0.4}" fitWidth="${primaryWeaponAmmo1.height * 0.4}" noise="0.0" styleClass="random-gen-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+
+                </GridPane>
+
+                <!-- characteristicsView -->
+                <GridPane GridPane.rowIndex="0" GridPane.columnIndex="2">
+
+                    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.2);
+                        </style>
+                        <Label text = "PERKS" >
+                            <padding>
+                                <Insets topRightBottomLeft="2"/>
+                            </padding>
+                        </Label>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex = "1" GridPane.columnIndex="0">
+                        <padding>
+                            <Insets top="15"/>
+                        </padding>
+                    </HBox>
+
+                    <Label text = "Quartermaster" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                           prefHeight="${maxPriceFilter.height}"/>
+                    <HBox alignment="CENTER" GridPane.columnIndex="1"
+                          GridPane.rowIndex="2">
+                        <CheckBox fx:id="quartermaster" styleClass="item-combo-box"/>
+                    </HBox>
+
+                    <Label text = "Frontiersman" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                           prefHeight="${maxPriceFilter.height}"/>
+                    <HBox alignment="CENTER" GridPane.columnIndex="1"
+                          GridPane.rowIndex="3">
+                        <CheckBox fx:id="frontiersman" styleClass="item-combo-box"/>
+                    </HBox>
+
+                    <Label text = "Doctor" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.hgrow="ALWAYS" maxWidth="Infinity"
+                           prefHeight="${maxPriceFilter.height}"/>
+                    <HBox alignment="CENTER" GridPane.columnIndex="1"
+                          GridPane.rowIndex="4">
+                        <CheckBox fx:id="doctor" styleClass="item-combo-box"/>
+                    </HBox>
+
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="5">
+                        <padding>
+                            <Insets top="20"/>
+                        </padding>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.2);
+                        </style>
+                        <Label text = "SPECS" >
+                            <padding>
+                                <Insets topRightBottomLeft="2"/>
+                            </padding>
+                        </Label>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="7" GridPane.columnIndex="0">
+                        <padding>
+                            <Insets top="15"/>
+                        </padding>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="8" GridPane.columnIndex="0">
+                        <Label text = "Price"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}">
+                        </Label>
+                    </HBox>
+                    <HBox GridPane.rowIndex="8" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <SpecBox text="785" fx:id="price">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>350</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>750</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>9999</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="9" GridPane.columnIndex="0">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <Label text = "Required rank"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="9" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <SpecBox text="76" style="-fx-font-weight: bold;" fx:id="requiredRank"/>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="10" GridPane.columnIndex="0" >
+                        <Label text = "Healing capacity" maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="10" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <SpecBox text="300" fx:id="healingCapacity">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>150</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>300</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>1000</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="11" GridPane.columnIndex="0">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <Label text = "Number of heals"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="11" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <SpecBox text="5" fx:id="numberOfHeals">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>3</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>5</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>8</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="12" GridPane.columnIndex="0">
+                        <Label text = "Cutting/piercing melee damage"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="12" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <SpecBox text="105" fx:id="cuttingMeleeDamage">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>100</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>130</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>1000</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="13" GridPane.columnIndex="0">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <Label text = "Blunt melee damage"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="13" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <SpecBox text="105" fx:id="bluntMeleeDamage">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>100</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>130</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>1000</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="14" GridPane.columnIndex="0">
+                        <Label text = "Ammo supply"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="14" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <SpecBox text="42" fx:id="ammoSupply">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>22</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>35</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>1000</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                    <HBox GridPane.rowIndex="15" GridPane.columnIndex="0">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <Label text = "Headshot range"  maxWidth="Infinity"
+                               GridPane.hgrow="ALWAYS" prefHeight="${maxPriceFilter.height}"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="15" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+                        <style>
+                            -fx-background-color: rgba(80,80,80,0.1);
+                        </style>
+                        <SpecBox text="135" fx:id="headshotRange">
+                            <conditionalFormatting>
+                                <ArrayList>
+                                    <Level>
+                                        <integerLevel>80</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: red;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>130</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: orange;</css>
+                                    </Level>
+                                    <Level>
+                                        <integerLevel>1000</integerLevel>
+                                        <css>-fx-font-weight: bold; -fx-text-fill: green;</css>
+                                    </Level>
+                                </ArrayList>
+                            </conditionalFormatting>
+                        </SpecBox>
+                    </HBox>
+
+                </GridPane>
+
+            </GridPane>
+            <HBox style="-fx-background-color: rgba(65,65,65,0.85);" visible="false" alignment="CENTER" fx:id="lockScreen">
+                <StackPane>
+                    <EasyIcon path="icons/lock.png" color="#d2d2d0" fitHeight="50" fitWidth="50" noise="0.0"/>
+                    <EasyIcon path="icons/loading_wheel.png" color="#d2d2d0" fitHeight="140" fitWidth="140" noise="0.0" fx:id="loadingWheel"/>
+                </StackPane>
+            </HBox>
+        </StackPane>
+        <HBox alignment="CENTER">
+            <padding>
+                <Insets topRightBottomLeft="20"/>
+            </padding>
+            <Button styleClass="item-combo-box" onAction="#equipNextRandom"
+                    fx:id="equipNextRandom" style="-fx-font-size:12pt"
+                    text="Random">
+                <!--<graphic>
+                    <EasyIcon path="/dice_01.png" color="#d2d2d0" fitHeight="92" fitWidth="120" noise="0.0" styleClass="random-gen-button"/>
+                </graphic>-->
+            </Button>
+        </HBox>
+        <!--<HBox>
+            <style>
+                -fx-background-color: rgba(80,80,80,0.2);
+            </style>
+            <Label text="Ready" fx:id="statusBar">
+                <padding>
+                    <Insets left="10" top="4" bottom="4"/>
+                </padding>
+            </Label>
+        </HBox>-->
+    </VBox>
+
+    <!--- program loading screen -->
+    <HBox style="-fx-background-color: rgba(65,65,65,0.85);" visible="false" alignment="CENTER" fx:id="loadingScreen">
+        <Label text="Loading..." style="-fx-font-size: 24pt;"/>
+    </HBox>
+
+</StackPane>
+
