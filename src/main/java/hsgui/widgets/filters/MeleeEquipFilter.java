@@ -5,10 +5,12 @@ import HuntShowdownLib.InGameTypes.GameItems.ItemFiltering.Filter;
 import HuntShowdownLib.InGameTypes.GameItems.ItemProperties.eAmmoSpecialEffect;
 import HuntShowdownLib.InGameTypes.GameItems.ItemProperties.eMeleeDamageType;
 import HuntShowdownLib.InGameTypes.Loadout.Loadout;
+import HuntShowdownLib.InGameTypes.Loadout.WeaponSlot;
 import hsgui.App;
 import hsgui.widgets.MeleeEquipGroup;
 import hsgui.widgets.MeleeEquipType;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MeleeEquipFilter extends MeleeEquipGroup implements FilterWidget<MeleeEquipType>{
@@ -62,15 +64,20 @@ public class MeleeEquipFilter extends MeleeEquipGroup implements FilterWidget<Me
     // - a weapon with poisonous projectiles
     // - a weapon with choke projectiles
     private boolean canDealWithImmolators(Loadout loadout) {
-        for (EEquippable equipped : loadout.getEquippedItems()) {
-            // poisonous projectiles?
-            if (equipped instanceof EProjectileWeapon) {
-                for (IAmmo ammoType : ((EProjectileWeapon)equipped).Ammo()) {
-                    if (ammoType.specialEffect() == eAmmoSpecialEffect.Poisoning) {
-                        return true;
-                    }
+
+        // poisonous projectiles?
+        for (WeaponSlot weaponSlot : List.of(loadout.primaryWeaponSlot, loadout.secondaryWeaponSlot)) {
+            if (weaponSlot.AmmoPack != null) {
+
+                if (weaponSlot.AmmoPack.getFirstAmmo().specialEffect() == eAmmoSpecialEffect.Poisoning ||
+                        weaponSlot.AmmoPack.getSecondAmmo().specialEffect() == eAmmoSpecialEffect.Poisoning) {
+                    return true;
                 }
+
             }
+        }
+
+        for (EEquippable equipped : loadout.getEquippedItems()) {
 
             // sufficient melee damage ?
             if ((equipped instanceof EProjectileWeapon || equipped instanceof EMeleeWeapon) &&
